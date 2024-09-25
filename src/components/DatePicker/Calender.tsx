@@ -12,6 +12,12 @@ const Calendar: React.FC = () => {
   const goToPreviousMonth = () => setStartDate(subMonths(startDate, 1));
   const goToNextMonth = () => setStartDate(addMonths(startDate, 1));
 
+  const handleDateClick = (day: Date) => {
+    const newDate = new Date(day);
+    newDate.setHours(12, 0, 0, 0);
+    setStartDate(newDate);
+  };
+
   return (
     <div className="bg-gray-800 rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-4 bg-gray-800">
@@ -32,7 +38,7 @@ const Calendar: React.FC = () => {
         {monthDays.map((day) => (
           <button
             key={day.toString()}
-            onClick={() => setStartDate(day)}
+            onClick={() => handleDateClick(day)}
             className={`p-2 text-center text-sm rounded-full transition-colors ${
               !isSameMonth(day, startDate)
                 ? 'text-gray-600 cursor-not-allowed'
